@@ -12,7 +12,7 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var footer: UILabel!
+     @IBOutlet weak var footer: UILabel!
     
     class var reuseIdentifier: String {
         return "creditsCell"
@@ -23,6 +23,7 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
     }
     
     func configure(with crew: MovieCredits.crewItem) {

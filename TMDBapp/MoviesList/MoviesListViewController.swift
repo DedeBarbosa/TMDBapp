@@ -58,7 +58,6 @@ extension MoviesListViewController:UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell",
                                                        for: indexPath) as? MovieTableViewCell else {return UITableViewCell()}
-        print(indexPath.row)
         guard let course = presenter.movie(atIndex: indexPath) else { return UITableViewCell() }
             cell.configure(with: course)
         return cell

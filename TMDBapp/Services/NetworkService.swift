@@ -77,7 +77,7 @@ class NetworkService {
         components.queryItems = defaultQueryItems
         
         guard let url = components.url else {return}
-        
+        print(url.absoluteURL)
         URLSession.shared.dataTask(with: url){ (data, _, _) in
             guard let data = data else {return}
             

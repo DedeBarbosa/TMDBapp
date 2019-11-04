@@ -21,14 +21,14 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var poster: UIImageView!
     @IBOutlet weak var crewCollection: UICollectionView!
-    //@IBOutlet weak var castCollection: UICollectionView!
+    @IBOutlet weak var castCollection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         crewCollection.dataSource = self
         crewCollection.delegate = self
-//        castCollection.dataSource = self
-//        castCollection.delegate = self
+        castCollection.dataSource = self
+        castCollection.delegate = self
         registerNib()
         presenter.viewDidLoad()
         creditsCollectionLayoutConfig()
@@ -40,13 +40,13 @@ class MovieDetailsViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         crewCollection.setCollectionViewLayout(layout, animated: false)
-//        castCollection.setCollectionViewLayout(layout, animated: false)
+        castCollection.setCollectionViewLayout(layout, animated: false)
     }
     
     func registerNib() {
         let nib = UINib(nibName: MovieDetailsCollectionViewCell.nibName, bundle: nil)
         crewCollection?.register(nib, forCellWithReuseIdentifier: MovieDetailsCollectionViewCell.reuseIdentifier)
-//        castCollection?.register(nib, forCellWithReuseIdentifier: MovieDetailsCollectionViewCell.reuseIdentifier)
+        castCollection?.register(nib, forCellWithReuseIdentifier: MovieDetailsCollectionViewCell.reuseIdentifier)
     }
     
     func configureModule(with movieId: Int){
@@ -104,7 +104,7 @@ extension MovieDetailsViewController: UICollectionViewDelegate{
 
 extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout {
    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
-    CGSize(width: collectionView.frame.width/4, height: collectionView.frame.width/3)
+    CGSize(width: collectionView.frame.width/4, height: collectionView.frame.height/1.5)
     }
     
 }
