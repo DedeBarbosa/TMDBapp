@@ -41,7 +41,7 @@ class MovieDetailModel: MovieDetailModelProtocol{
     }
     
     func getImageData(by path: String?) -> Data?{
-        var imageData: Data?
+        //var imageData: Data?
         if let data = NetworkService.shared.getImage(by: path){
             return data
         }/*{ data in

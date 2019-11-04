@@ -32,8 +32,6 @@ class MoviesListViewController: UIViewController {
             guard let movieId = sender as? Int else {return}
             guard let detailVC = segue.destination as? MovieDetailsViewController else {return}
             detailVC.configureModule(with: movieId)
-            //let configurator: CourseDetailsConfiguratorProtocol = CourseDetailsConfigurator()
-            //configurator.configure(with: detailVC, and: course)
         }
     }
     

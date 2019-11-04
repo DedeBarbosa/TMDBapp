@@ -12,8 +12,6 @@ class MovieTableViewCell: UITableViewCell {
    
     func configure(with movie: MovieList.Movie) {
         textLabel?.text = movie.title
-//        guard let imageData = NetworkService.shared.getImage(by: movie.posterPath) else { return }
-//        imageView?.image = UIImage(data: imageData)
         if let data = NetworkService.shared.getImage(by: movie.posterPath){
             imageView?.image = UIImage(data: data)
             /*{ [weak self] data in
