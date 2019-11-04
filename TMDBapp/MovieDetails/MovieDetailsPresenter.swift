@@ -29,7 +29,7 @@ class MovieDetailPresenter: MovieDetailPresenterProtocol{
             if let movie = self.movie{
                 DispatchQueue.main.async {
                     self.view.setTitle(title: movie.title)
-                    self.view.setImage(data: self.model.getImageData(by: movie.backdropPath) ?? nil)
+                    self.view.setImage(data: self.model.getImageData(by: movie.backdropPath))
                 }
             }
         }
@@ -79,6 +79,8 @@ extension MovieDetailPresenter: MovieDetailModelOutputProtocol{
         self.movieCredits = movieCredits
         view.reloadData()
     }
+    
+    
     
     
 }

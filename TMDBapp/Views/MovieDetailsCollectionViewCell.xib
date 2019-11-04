@@ -13,37 +13,56 @@
             <rect key="frame" x="0.0" y="0.0" width="78" height="169"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GDt-F6-3D8">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GDt-F6-3D8">
                     <rect key="frame" x="0.0" y="0.0" width="78" height="104"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="GDt-F6-3D8" secondAttribute="height" multiplier="3:4" id="2fI-UL-xga"/>
                         <constraint firstAttribute="width" constant="78" id="aYT-OQ-STx"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qzW-Tw-sDb">
-                    <rect key="frame" x="0.0" y="104" width="78" height="65"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qzW-Tw-sDb">
+                    <rect key="frame" x="0.0" y="104" width="78" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nr-CY-5OO">
+                    <rect key="frame" x="0.0" y="147" width="78" height="22"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="qzW-Tw-sDb" firstAttribute="height" secondItem="GDt-F6-3D8" secondAttribute="height" multiplier="0.394231" id="3hj-YW-fxd"/>
+                <constraint firstItem="5Nr-CY-5OO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ELb-wp-SqV"/>
                 <constraint firstItem="GDt-F6-3D8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Wsq-h0-0S4"/>
                 <constraint firstItem="GDt-F6-3D8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XAe-nc-Cwd"/>
+                <constraint firstItem="5Nr-CY-5OO" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="ZJc-BJ-NNT"/>
                 <constraint firstItem="qzW-Tw-sDb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="dbX-v6-73f"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="qzW-Tw-sDb" secondAttribute="bottom" id="e7b-wT-7WV"/>
+                <constraint firstItem="5Nr-CY-5OO" firstAttribute="top" secondItem="qzW-Tw-sDb" secondAttribute="bottom" constant="2" id="fCt-Lh-ENw"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qzW-Tw-sDb" secondAttribute="trailing" id="oZL-8j-lxf"/>
+                <constraint firstItem="5Nr-CY-5OO" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="p7I-3G-HgS"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GDt-F6-3D8" secondAttribute="trailing" id="pQn-kQ-LtH"/>
                 <constraint firstItem="qzW-Tw-sDb" firstAttribute="top" secondItem="GDt-F6-3D8" secondAttribute="bottom" id="ruh-ha-SSf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="footer" destination="5Nr-CY-5OO" id="KLn-Ub-A61"/>
                 <outlet property="image" destination="GDt-F6-3D8" id="dj2-q6-vU1"/>
                 <outlet property="label" destination="qzW-Tw-sDb" id="FL9-2s-4Sz"/>
             </connections>
             <point key="canvasLocation" x="-101.44927536231884" y="339.84375"/>
         </view>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="dfS-J7-n3U">
+            <rect key="frame" x="0.0" y="0.0" width="78" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+            <nil key="textColor"/>
+            <nil key="highlightedColor"/>
+            <point key="canvasLocation" x="-230" y="428"/>
+        </label>
     </objects>
 </document>

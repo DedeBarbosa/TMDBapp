@@ -18,30 +18,35 @@ protocol MovieDetailsViewProtocol {
 class MovieDetailsViewController: UIViewController {
     var presenter: MovieDetailPresenterProtocol!
     
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var poster: UIImageView!
-    @IBOutlet weak var creditsCollection: UICollectionView!
+    @IBOutlet weak var crewCollection: UICollectionView!
+    //@IBOutlet weak var castCollection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        creditsCollection.dataSource = self
-        creditsCollection.delegate = self
-        creditsCollection.isPagingEnabled = true
+        crewCollection.dataSource = self
+        crewCollection.delegate = self
+//        castCollection.dataSource = self
+//        castCollection.delegate = self
         registerNib()
         presenter.viewDidLoad()
+        creditsCollectionLayoutConfig()
+    }
+    
+    
+    
+    func creditsCollectionLayoutConfig(){
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        crewCollection.setCollectionViewLayout(layout, animated: false)
+//        castCollection.setCollectionViewLayout(layout, animated: false)
     }
     
     func registerNib() {
         let nib = UINib(nibName: MovieDetailsCollectionViewCell.nibName, bundle: nil)
-        creditsCollection?.register(nib, forCellWithReuseIdentifier: MovieDetailsCollectionViewCell.reuseIdentifier)
-        let sectionNib = UINib(nibName: "SectionCollectionReusableView", bundle: nil)
-        self.creditsCollection.register(sectionNib,forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,withReuseIdentifier: "SectionCollectionReusableView")
-        if let flowLayout = self.creditsCollection.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.sectionHeadersPinToVisibleBounds = true
-        }
-//        if let flowLayout = self.creditsCollection?.collectionViewLayout as? UICollectionViewFlowLayout {
-//            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
-//        }
+        crewCollection?.register(nib, forCellWithReuseIdentifier: MovieDetailsCollectionViewCell.reuseIdentifier)
+//        castCollection?.register(nib, forCellWithReuseIdentifier: MovieDetailsCollectionViewCell.reuseIdentifier)
     }
     
     func configureModule(with movieId: Int){
@@ -64,7 +69,7 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol{
     
     func reloadData(){
         DispatchQueue.main.async {
-            self.creditsCollection.reloadData()
+            self.crewCollection.reloadData()
         }
     }
     
@@ -72,15 +77,15 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol{
 
 extension MovieDetailsViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 1{
+        if collectionView == crewCollection{
             return presenter.getCrewCount ?? 0
         }
         return presenter.getActorsCount ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "creditsCell", for: indexPath) as? MovieDetailsCollectionViewCell else {return UICollectionViewCell()}
-        if indexPath.section == 1, let crew = presenter.getCrew(atIndex: indexPath){
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieDetailsCollectionViewCell.reuseIdentifier, for: indexPath) as? MovieDetailsCollectionViewCell else {return UICollectionViewCell()}
+        if collectionView == crewCollection, let crew = presenter.getCrew(atIndex: indexPath){
                    cell.configure(with: crew)
                    return cell
         } else{
@@ -88,64 +93,18 @@ extension MovieDetailsViewController: UICollectionViewDataSource{
             cell.configure(with: cast)
             return cell
         }
-
-//        guard let cell = Bundle.main.loadNibNamed(MovieDetailsCollectionViewCell.nibName, owner: self,
-//                                                  options: nil)?.first as? MovieDetailsCollectionViewCell else {
-//            return UICollectionViewCell()
-//        }
-//        if indexPath.section == 1, let crew = presenter.getCrew(atIndex: indexPath){
-//                   cell.configure(with: crew)
-//        } else if let cast = presenter.getCast(atIndex: indexPath){
-//            cell.configure(with: cast)
-//        }
-//        cell.setNeedsLayout()
-//        cell.layoutIfNeeded()
-//        return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-     
-        guard kind == UICollectionView.elementKindSectionHeader else {
-            return UICollectionReusableView()
-        }
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                   withReuseIdentifier: "SectionCollectionReusableView",
-                                                                   for: indexPath) as! SectionCollectionReusableView
-
-        view.textLabel.text = String(indexPath.section + 1)
-        return view
     }
 }
 
 extension MovieDetailsViewController: UICollectionViewDelegate{
-
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        1
     }
-    
-    
 }
-
-
-
-
-
 
 extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout {
    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAt indexPath: IndexPath) -> CGSize {
-            CGSize(width: collectionView.bounds.size.width - 16, height: 120)
+    CGSize(width: collectionView.frame.width/4, height: collectionView.frame.width/3)
     }
-    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        8
-    }
-
-    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        0
-    }
-
-    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.size.width, height: 64)
-    }
+    
 }

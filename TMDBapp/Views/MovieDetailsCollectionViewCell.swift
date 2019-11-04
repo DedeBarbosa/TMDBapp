@@ -12,6 +12,7 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var footer: UILabel!
     
     class var reuseIdentifier: String {
         return "creditsCell"
@@ -25,13 +26,23 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with crew: MovieCredits.crewItem) {
-        label.text = "\(crew.name ?? "")\n\(crew.job ?? "")"
-        guard let imageData = NetworkService.shared.getImage(by: crew.profilePath) else { return }
-        image.image = UIImage(data: imageData)
+        label.text = "\(crew.name ?? "")"
+        footer.text = "\(crew.job ?? "")"
+        if let data = NetworkService.shared.getImage(by: crew.profilePath){
+            image.image = UIImage(data: data)/*{ [weak self] data in
+            DispatchQueue.main.async {
+                self?.image.image = UIImage(data: data)
+            }*/
+        }
     }
     func configure(with cast: MovieCredits.castItem) {
         label.text = cast.name ?? ""
-        guard let imageData = NetworkService.shared.getImage(by: cast.profilePath) else { return }
-        image.image = UIImage(data: imageData)
+        if let data = NetworkService.shared.getImage(by: cast.profilePath){
+            image.image = UIImage(data: data)
+        }/*{ [weak self] data in
+            DispatchQueue.main.async {
+                self?.image.image = UIImage(data: data)
+            }
+        }*/
     }
 }

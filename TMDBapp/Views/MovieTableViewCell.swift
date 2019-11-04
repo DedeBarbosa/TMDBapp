@@ -9,11 +9,18 @@
 import UIKit
 
 class MovieTableViewCell: UITableViewCell {
-    
+   
     func configure(with movie: MovieList.Movie) {
         textLabel?.text = movie.title
-        guard let imageData = NetworkService.shared.getImage(by: movie.posterPath) else { return }
-        imageView?.image = UIImage(data: imageData)
+//        guard let imageData = NetworkService.shared.getImage(by: movie.posterPath) else { return }
+//        imageView?.image = UIImage(data: imageData)
+        if let data = NetworkService.shared.getImage(by: movie.posterPath){
+            imageView?.image = UIImage(data: data)
+            /*{ [weak self] data in
+            DispatchQueue.main.async {
+                self?.imageView?.image = UIImage(data: data)
+            }*/
+        }
         if let rate = self.viewWithTag(11) as? UILabel{
             rate.text = String(format:"%.1f", movie.voteAverage ?? 0)
         }    

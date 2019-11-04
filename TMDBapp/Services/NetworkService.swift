@@ -11,7 +11,7 @@ import Foundation
 class NetworkService {
     
     static let shared = NetworkService()
-    
+    static var imageDictionary: [String:Data] = [:]
     private let movieListId = 28
     
     private let tmdbApiHost = "api.themoviedb.org"
@@ -93,14 +93,39 @@ class NetworkService {
     }
     
     func getImage(by path: String?) -> Data?{
+        guard let path = path else {return nil}
+        if NetworkService.imageDictionary.keys.contains(path){
+            return NetworkService.imageDictionary[path]
+        }
         var components = URLComponents()
         components.scheme = "https"
         components.host = tmdbImageHost
-        components.path = "/t/p/w500\(path ?? "")"
+        components.path = "/t/p/w200\(path)"
         
         guard let url = components.url else {return nil}
-        print(url.absoluteURL)
         guard let imageData = try? Data(contentsOf: url) else { return nil }
+        NetworkService.imageDictionary[path] = imageData
         return imageData
     }
+    
+//    func getImage(by path: String?, completion: @escaping(_ data: Data)->()){
+//        guard let path = path else {return}
+//        if let data = NetworkService.imageDictionary[path]{
+//            completion(data)
+//            return
+//        }
+//        var components = URLComponents()
+//        components.scheme = "https"
+//        components.host = tmdbImageHost
+//        components.path = "/t/p/w200\(path)"
+//
+//
+//        guard let url = components.url else {return}
+//
+//        URLSession.shared.dataTask(with: url){ (data, _, _) in
+//            guard let data = data else {return}
+//            NetworkService.imageDictionary[path] = data
+//            completion(data)
+//        }.resume()
+//    }
 }
