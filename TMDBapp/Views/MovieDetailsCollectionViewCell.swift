@@ -12,7 +12,8 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var label: UILabel!
-     @IBOutlet weak var footer: UILabel!
+    @IBOutlet weak var footer: UILabel!
+    let blankPhoto = #imageLiteral(resourceName: "169-1695846_jane-no-one-icon-clipart.png")
     
     class var reuseIdentifier: String {
         return "creditsCell"
@@ -23,27 +24,32 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
     
     func configure(with crew: MovieCredits.crewItem) {
         label.text = "\(crew.name ?? "")"
         footer.text = "\(crew.job ?? "")"
-        if let data = NetworkService.shared.getImage(by: crew.profilePath){
-            image.image = UIImage(data: data)/*{ [weak self] data in
+        NetworkService.shared.getImage(by: crew.profilePath){
+             [weak self] data in
             DispatchQueue.main.async {
-                self?.image.image = UIImage(data: data)
-            }*/
+                if let data = data{
+                    self?.image.image = UIImage(data: data)
+                }else{
+                    self?.image.image = self?.blankPhoto
+                }
+            }
         }
     }
     func configure(with cast: MovieCredits.castItem) {
         label.text = cast.name ?? ""
-        if let data = NetworkService.shared.getImage(by: cast.profilePath){
-            image.image = UIImage(data: data)
-        }/*{ [weak self] data in
+        NetworkService.shared.getImage(by: cast.profilePath){[weak self] data in
             DispatchQueue.main.async {
-                self?.image.image = UIImage(data: data)
+                if let data = data{
+                    self?.image.image = UIImage(data: data)
+                }else{
+                    self?.image.image = self?.blankPhoto
+                }
             }
-        }*/
+        }
     }
 }

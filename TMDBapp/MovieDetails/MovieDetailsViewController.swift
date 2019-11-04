@@ -37,6 +37,9 @@ class MovieDetailsViewController: UIViewController {
     
     
     func creditsCollectionLayoutConfig(){
+        crewCollection.showsVerticalScrollIndicator = false
+        crewCollection.alwaysBounceVertical = false
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         crewCollection.setCollectionViewLayout(layout, animated: false)
@@ -78,14 +81,17 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol{
 extension MovieDetailsViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == crewCollection{
+            print(presenter.getCrewCount)
             return presenter.getCrewCount ?? 0
         }
         return presenter.getActorsCount ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieDetailsCollectionViewCell.reuseIdentifier, for: indexPath) as? MovieDetailsCollectionViewCell else {return UICollectionViewCell()}
         if collectionView == crewCollection, let crew = presenter.getCrew(atIndex: indexPath){
+            print("count 0 = \(collectionView.numberOfItems(inSection: 0))")
                    cell.configure(with: crew)
                    return cell
         } else{

@@ -108,24 +108,24 @@ class NetworkService {
         return imageData
     }
     
-//    func getImage(by path: String?, completion: @escaping(_ data: Data)->()){
-//        guard let path = path else {return}
-//        if let data = NetworkService.imageDictionary[path]{
-//            completion(data)
-//            return
-//        }
-//        var components = URLComponents()
-//        components.scheme = "https"
-//        components.host = tmdbImageHost
-//        components.path = "/t/p/w200\(path)"
-//
-//
-//        guard let url = components.url else {return}
-//
-//        URLSession.shared.dataTask(with: url){ (data, _, _) in
-//            guard let data = data else {return}
-//            NetworkService.imageDictionary[path] = data
-//            completion(data)
-//        }.resume()
-//    }
+    func getImage(by path: String?, completion: @escaping(_ data: Data?)->()){
+        guard let path = path else {return}
+        if let data = NetworkService.imageDictionary[path]{
+            completion(data)
+            return
+        }
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = tmdbImageHost
+        components.path = "/t/p/w200\(path)"
+
+
+        guard let url = components.url else {return}
+
+        URLSession.shared.dataTask(with: url){ (data, _, _) in
+            guard let data = data else {completion(nil); return}
+            NetworkService.imageDictionary[path] = data
+            completion(data)
+        }.resume()
+    }
 }

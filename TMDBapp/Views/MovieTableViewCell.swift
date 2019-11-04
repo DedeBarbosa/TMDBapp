@@ -14,10 +14,6 @@ class MovieTableViewCell: UITableViewCell {
         textLabel?.text = movie.title
         if let data = NetworkService.shared.getImage(by: movie.posterPath){
             imageView?.image = UIImage(data: data)
-            /*{ [weak self] data in
-            DispatchQueue.main.async {
-                self?.imageView?.image = UIImage(data: data)
-            }*/
         }
         if let rate = self.viewWithTag(11) as? UILabel{
             rate.text = String(format:"%.1f", movie.voteAverage ?? 0)
