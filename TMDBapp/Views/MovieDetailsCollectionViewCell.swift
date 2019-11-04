@@ -29,13 +29,13 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell {
     func configure(with crew: MovieCredits.crewItem) {
         label.text = "\(crew.name ?? "")"
         footer.text = "\(crew.job ?? "")"
-        NetworkService.shared.getImage(by: crew.profilePath){
-             [weak self] data in
+        NetworkService.shared.getImage(by: crew.profilePath){  [weak self] data in
             DispatchQueue.main.async {
                 if let data = data{
                     self?.image.image = UIImage(data: data)
-                }else{
-                    self?.image.image = self?.blankPhoto
+                }
+                else{
+                    self?.image.image = nil
                 }
             }
         }
@@ -46,8 +46,9 @@ class MovieDetailsCollectionViewCell: UICollectionViewCell {
             DispatchQueue.main.async {
                 if let data = data{
                     self?.image.image = UIImage(data: data)
-                }else{
-                    self?.image.image = self?.blankPhoto
+                }
+                else{
+                    self?.image.image = nil
                 }
             }
         }

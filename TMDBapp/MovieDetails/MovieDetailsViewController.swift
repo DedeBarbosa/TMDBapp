@@ -81,7 +81,6 @@ extension MovieDetailsViewController: MovieDetailsViewProtocol{
 extension MovieDetailsViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == crewCollection{
-            print(presenter.getCrewCount)
             return presenter.getCrewCount ?? 0
         }
         return presenter.getActorsCount ?? 0
@@ -91,8 +90,8 @@ extension MovieDetailsViewController: UICollectionViewDataSource{
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieDetailsCollectionViewCell.reuseIdentifier, for: indexPath) as? MovieDetailsCollectionViewCell else {return UICollectionViewCell()}
         if collectionView == crewCollection, let crew = presenter.getCrew(atIndex: indexPath){
-            print("count 0 = \(collectionView.numberOfItems(inSection: 0))")
-                   cell.configure(with: crew)
+            print(indexPath.row)
+            cell.configure(with: crew)
                    return cell
         } else{
             guard let cast = presenter.getCast(atIndex: indexPath) else {return UICollectionViewCell()}
